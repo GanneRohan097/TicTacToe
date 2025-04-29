@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+</head>
+<style>
+    body{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    background-color: black;
+   
+
+}
+    .keys{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 1px;
+        margin-top: 100px;
+        margin-left:300px;
+        backdrop-filter: blur(10px);
+        box-shadow: 3px 10px 200px white;
+    }
+    .dot{
+        width: 150px;
+        height: 150px;
+        padding: 0px;
+        background-color: rgb(10, 45, 45);
+        border: 2px solid white;
+        color: white;
+        font-size: 100px;
+        font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    }
+    .dot:hover {
+    background-color: rgb(20, 80, 80);
+    transform: scale(1.1);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+h1{
+    padding-left: 20px;
+    color: white;
+}
+#turn{
+    margin-left: 200px;
+    font-size: 50px;
+    border-radius: 250px;
+    margin-top: 120px;
+    background-color: rgb(21, 1, 1);
+    color: white;
+    width: 100px;
+    height: 100px;
+}
+#turn:hover{
+    transform: scale(0.8);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+#win{
+    margin-top: 500px;
+    margin-left: 0px;
+}
+h3{
+    padding-left: 10px;
+}
+#x,#o{
+    height: 100px;
+    width: 250px;
+    font-size: 50px;
+    background-color: black;
+    border: none;
+    color: white;
+}
+#score{
+    display: grid;
+        grid-template-columns: repeat(1,1fr);
+}
+
+</style>
+<body>
+   <div id="score">
+    <button id="x">x player: 0</button>
+    <button id="o">o player: 0</button>
+   </div>
+   <h1 id="win"></h1>
+    <div class="keys">
+        <button id="1" class="dot" onclick="clickk(1)"></button>
+        <button id="2" class="dot" onclick="clickk(2)"></button>
+        <button id="3" class="dot" onclick="clickk(3)"></button>
+        <button id="4" class="dot" onclick="clickk(4)"></button>
+        <button id="5" class="dot" onclick="clickk(5)"></button>
+        <button id="6" class="dot" onclick="clickk(6)"></button>
+        <button id="7" class="dot" onclick="clickk(7)"></button>
+        <button id="8" class="dot" onclick="clickk(8)"></button>
+        <button id="9" class="dot" onclick="clickk(9)"></button>
+    </div>
+   
+    <button id="turn" class="dot" onclick="restart()"> ↻ </button>
+
+</body>
+</html>
+<script>
+    let x=0,o=0,count=1,xlist=[],olist=[],c=0,s=new Audio('tap.wav'),xwin=0,owin=0;
+    function clickk(n){
+        if(c!=0) return;
+        s.play();
+       if(count%2!=0){
+        x=x+1;
+        document.getElementById(n).innerText="x";
+        count=count+1
+        xlist.push(n);
+       }
+       else{
+        o=o+1;
+        count=count+1
+        document.getElementById(n).innerText="o";
+        olist.push(n);
+       }
+       if((xlist.includes(1) && xlist.includes(2) && xlist.includes(3)) || (xlist.includes(7) && xlist.includes(8) && xlist.includes(9)) || (xlist.includes(2) && xlist.includes(5) && xlist.includes(8))){
+        document.getElementById('win').innerText="Winner: X";
+        c=c+1;
+        xwin++;
+        document.getElementById('x').innerText=`x player: ${xwin}`;
+       }
+       else if ((xlist.includes(4) && xlist.includes(5) && xlist.includes(6)) || (xlist.includes(1) && xlist.includes(4) && xlist.includes(7)) || (xlist.includes(3) && xlist.includes(6) && xlist.includes(9))) {
+        document.getElementById('win').innerText="Winner: X";
+        c=c+1;
+        xwin++;
+        document.getElementById('x').innerText=`x player: ${xwin}`;
+       }
+       else if((xlist.includes(1) && xlist.includes(5) && xlist.includes(9)) || (xlist.includes(3) && xlist.includes(5) && xlist.includes(7))){
+        document.getElementById('win').innerText="Winner: X";
+        c=c+1
+        xwin++;
+        document.getElementById('x').innerText=`x player: ${xwin}`;
+       }
+       if((olist.includes(1) && olist.includes(2) && olist.includes(3)) || (olist.includes(7) && olist.includes(8) && olist.includes(9)) || (olist.includes(2) && olist.includes(5) && olist.includes(8))){
+        document.getElementById('win').innerText="Winner: O";
+        c=c+1
+        owin++;
+        document.getElementById('o').innerText=`o player: ${owin}`;
+       }
+       else if ((olist.includes(4) && olist.includes(5) && olist.includes(6)) || (olist.includes(1) && olist.includes(4) && olist.includes(7)) || (olist.includes(3) && olist.includes(6) && olist.includes(9))) {
+        document.getElementById('win').innerText="Winner: O";
+        c=c+1
+        owin++;
+        document.getElementById('o').innerText=`o player: ${owin}`;
+       }
+       else if((olist.includes(1) && olist.includes(5) && olist.includes(9)) || (olist.includes(3) && olist.includes(5) && olist.includes(7))){
+        document.getElementById('win').innerText="Winner: O";
+        c=c+1;
+        owin++;
+        document.getElementById('o').innerText=`o player: ${owin}`;
+       }
+       if(count==10 && c==0){
+        document.getElementById('win').innerText="Draw";
+        c=c+1;
+       }
+       if(c!=0) return;
+    } 
+    
+      
+
+    function restart(){
+       let b= document.getElementsByTagName("button");
+       for(let i=0;i<b.length;i++){
+        b[i].innerText=''
+       }
+       document.getElementById('win').innerText="";
+       document.getElementById('turn').innerText=" ↻ ";
+       document.getElementById('x').innerText=`x player: ${xwin}`;
+       document.getElementById('o').innerText=`o player: ${owin}`;
+       x = 0;
+       o = 0;
+       count = 1;
+       xlist = [];
+       olist = [];
+       c = 0;
+    }
+</script>
